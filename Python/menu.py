@@ -1,6 +1,7 @@
 """This program is for the main-main menu for my TK GUI. Works cited from: 
 https://www.youtube.com/watch?v=lyoyTlltFVU&list=PLZPZq0r_RZOOeQBaP5SeMjl2nwDcJaV0T - Channel: Bro Code - Tkinter tutourial playlist"""
 
+from pkgutil import get_data
 from tkinter import * #Imports the tkinter library
 import json #Imports the json library
 
@@ -124,32 +125,57 @@ def sign_up():
                            activebackground= "#23FF34", #Changes color when clicked
                            padx = 10,
                            pady = 5,
-                           command = lambda: print(f"Username: {username_entry.get()}, Password: {password_entry.get()}")) #Prints the username and password to the console when clicked
-    submit_button.place(x=270, y=650) #Places the button at the x and y coordinates
+                           command = lambda: submit(username_entry, password_entry))
+    #calls the submit function when the submit button is clicked
+    submit_button.place(x=150, y=650) #Places the button at the x and y coordinates
+    #end of sign_up function
+    #function to save the username and password to a json file
+    
+def submit(username_entry, password_entry):
+        username = username_entry.get()
+        username = str(username) #Converts the username to a string to prevent json data type errors
+        password = password_entry.get()
+        password = str(password) #Converts the password to a string to prevent json data type errors
+        password = str(password) #Converts the password to a string to prevent json data type errors
+        prevent_overwrite() #Calls the prevent_overwrite function to prevent previous data from being overwritten
+        if username in user_data:
+            print("Username already exists!") #Prints to the console if the username already exists
+        else:
+            user_data[username] = password #saves the username and password to the dictionary
+            with open('user_data.json', 'w') as f:
+                json.dump(user_data, f)  #Saves the dictionary to a json file
+            print("User data saved!") #Prints to the console
+        username_entry.delete(0, END) #Clears the username entry box
+        password_entry.delete(0, END) #Clears the password entry box
+
+# loads the user data from the json file when the login button is clicked
+def load_user_data():
+    try:
+        with open('user_data.json', 'r') as f:
+            existing_data = json.load(f) #Loads the existing data from the json file
+            user_data.update(existing_data) #Updates the dictionary with the existing data
+            print("User data loaded!") #Prints to the console
+            print(user_data) #Prints the dictionary to the console
+    except FileNotFoundError:
+        print("No user data found!") #Prints to the console if no file is found
+    #end of load_user_data function
+
+#function to prevent previous user data entered from the previous time the window is opened from being overwritten
+def prevent_overwrite():
+    try:
+        with open('user_data.json', 'r') as f:
+            existing_data = json.load(f) #Loads the existing data from the json file
+            user_data.update(existing_data) #Updates the dictionary with the existing data
+    except FileNotFoundError:
+        pass #If the file does not exist, do nothing
+    #end of submit function
     #saves the username and password to a dictionary
-    user_data = {} #Creates an empty dictionary to store the usernames and passwords
-    user_data[username_entry.get()] = password_entry.get() #Adds the username and password to the dictionary
-    print(user_data) #Prints the dictionary to the console for testing purposes
-    save_user_data() #Calls the function to save the user data to a json file
+
 
 #creates a dictionary that stores usernames and passwords
 #puts the info from the entry into the dictionary when the submit button is clicked
 #each new username should be a new key, and each password should be the value   
-    
-#saves the dictionary to a json file
-def save_user_data():
-    with open('user_data.json', 'w') as f: #Opens the file in write mode
-        json.dump(user_data, f, ident = 4) #Dumps the dictionary into the file with an indent of 4 spaces for readability
-
-#loads the dictionary from the json file when login button is clicked
-def load_user_data():
-   try:
-       with open('user_data.json', 'r') as f: #Opens the file in read mode
-           user_data = json.load(f) #Loads the dictionary from the file
-           print(user_data) #Prints the dictionary to the console for testing purposes
-   except FileNotFoundError:
-        print("No user data found.") #Prints to the console if the file is not found
-
+user_data = {} #Creates an empty dictionary to store user data
 
 sign_up_button = Button(menu_window,
                         text = "Sign Up",
@@ -165,18 +191,71 @@ sign_up_button = Button(menu_window,
 sign_up_button.place(x=170, y=450) #Places the button at the x and y coordinates
 
 #creates a login button that when clicked will create two input boxes for username and password
-login_button = Button(menu_window,
-                        text = "Login",
-                        font = ('MS Serif', 20),
-                        fg = "#FFFFFF",
-                        bg = "#0000FF",
-                        relief = RAISED,
-                        bd = 5,
-                        command = load_user_data, #Calls the load_user_data function when clicked
-                        activebackground= "#236BFF", #Changes color when clicked
-                        padx = 10,
-                        pady = 5,) #No command yet
-login_button.place(x=650, y=450) #Places the button at the x and y coordinates
+#a function that creates a input box below the button when the login button is clicked
 
+#a function to verify the username and password when the submit button is clicked
+def verify(username_entry, password_entry):
+    username = username_entry.get()
+    password = password_entry.get()
+    if username in user_data and user_data[username] == password:
+        print("Login successful!") #Prints to the console if the username and password match
+    else:
+        print("Login failed!") #Prints to the console if the username and password do not match
+    username_entry.delete(0, END) #Clears the username entry box
+    password_entry.delete(0, END) #Clears the password entry box
+    #end of verify function
+def login():
+    username_label = Label(menu_window,
+                          text = "Enter your username below:",
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#70B9E4",)
+    username_label.place(x=500, y=520) #Places the label at the x and y coordinates
+    username_entry = Entry(menu_window,
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#FFFFFF",
+                          width = 30,)
+    username_entry.place(x=500, y=550) #Places the entry box at the x and y coordinates
+    #and now for the password input box
+    password_label = Label(menu_window,
+                          text = "Enter your password below:",
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#70B9E4",)
+    password_label.place(x=500, y=580) #Places the label at the x and y coordinates
+    password_entry = Entry(menu_window,
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#FFFFFF",
+                          width = 30,
+                          show="*") #Hides the password input
+    password_entry.place(x=500, y=610) #Places the entry box at the x and y coordinates
+    submit_button = Button(menu_window,
+                           text = "Submit",
+                           font = ('MS Serif', 14),
+                           fg = "#FFFFFF",
+                           bg = "#00AA00",
+                           relief = RAISED,
+                           bd = 5,
+                           activebackground= "#23FF34", #Changes color when clicked
+                           padx = 10,
+                           pady = 5,
+                           command = lambda: [ load_user_data, verify(username_entry, password_entry)])
+    #check if the username and password match the data in the json file when the submit button is clicked
+
+    #calls the verify function when the submit button is clicked
+    submit_button.place(x=500, y=650) #Places the button at the x and y coordinates
+    #end of login function
+
+login_button = Button(menu_window,
+                      text = "Login",
+                      font = ('MS Serif', 20),
+                      fg = "#FFFFFF",
+                      bg = "#0000FF",
+                      relief = RAISED,
+                      bd = 5,
+                      command = login, )#Calls the login function when clicked
+login_button.place(x=550, y=450) #Places the button at the x and y coordinates
 
 menu_window.mainloop() #Runs the window infinitely until closed by user, listen for events.
