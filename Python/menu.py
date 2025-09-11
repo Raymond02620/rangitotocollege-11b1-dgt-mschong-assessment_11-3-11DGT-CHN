@@ -1,9 +1,9 @@
 """This program is for the main-main menu for my TK GUI. Works cited from: 
 https://www.youtube.com/watch?v=lyoyTlltFVU&list=PLZPZq0r_RZOOeQBaP5SeMjl2nwDcJaV0T - Channel: Bro Code - Tkinter tutourial playlist"""
 
-from pkgutil import get_data
 from tkinter import * #Imports the tkinter library
 import json #Imports the json library
+import os
 
 menu_window = Tk() #Creates/instanstiates a window 
 menu_window.geometry("634x400") #Sets the size of the window, ratio is length:height
@@ -199,11 +199,14 @@ def verify(username_entry, password_entry):
     password = password_entry.get()
     if username in user_data and user_data[username] == password:
         print("Login successful!") #Prints to the console if the username and password match
+        os.system("python gameselection.py")  #Opens the game selection window if the login is successful
+        menu_window.destroy() #Closes the main menu window after opening the game selection window
     else:
         print("Login failed!") #Prints to the console if the username and password do not match
     username_entry.delete(0, END) #Clears the username entry box
     password_entry.delete(0, END) #Clears the password entry box
     #end of verify function
+
 def login():
     username_label = Label(menu_window,
                           text = "Enter your username below:",
@@ -241,7 +244,7 @@ def login():
                            activebackground= "#23FF34", #Changes color when clicked
                            padx = 10,
                            pady = 5,
-                           command = lambda: [ load_user_data, verify(username_entry, password_entry)])
+                           command = lambda: [ load_user_data, verify(username_entry, password_entry),])
     #check if the username and password match the data in the json file when the submit button is clicked
 
     #calls the verify function when the submit button is clicked
@@ -257,5 +260,20 @@ login_button = Button(menu_window,
                       bd = 5,
                       command = login, )#Calls the login function when clicked
 login_button.place(x=550, y=450) #Places the button at the x and y coordinates
+
+def guest_play():
+#Opens the game selection window, ensures closing one window won't close both
+    os.system("python gameselection.py")  #Opens the game selection window if the login is successful
+    menu_window.destroy() #Closes the main menu window after opening the game selection window
+
+guest_button = Button(menu_window,
+                      text = "Play as Guest",
+                      font = ('MS Serif', 20),
+                      fg = "#FFFFFF",
+                      bg = "#0000FF",
+                      relief = RAISED,
+                      bd = 5,
+                      command = guest_play, )#Calls the guest_play function when clicked
+guest_button.place(x=900, y=450) #Places the button at the x and y coordinates
 
 menu_window.mainloop() #Runs the window infinitely until closed by user, listen for events.
