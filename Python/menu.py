@@ -245,11 +245,17 @@ guest_button.place(x=1500, y=450) #Places the button at the x and y coordinates
 def forgot_verify(username_entry):
     load_user_data() #Loads the user data from the json file
     username = username_entry.get()
-    if username in user_data: #Checks if the username exists in the dictionary
-        print(f"Your password is: {user_data[username]}") #Prints the password to the console if the username exists
+    try:
+        if username in user_data: #Checks if the username exists in the dictionary
+            print(f"Your password is: {user_data[username]}") #Prints the password to the console if the username exists
 
-    else:
-        print("Username not found!") #Prints to the console if the username does not exist
+        elif username == "":
+            print("Please enter a username!") #Prints to the console if the username entry box is empty
+
+        else:
+            print("Username not found!") #Prints to the console if the username does not exist
+    except UnboundLocalError:
+        print("No user data found!") #Prints to the console if no user data is found
     username_entry.delete(0, END) #Clears the username entry box
     #end of forgot_verify function
 
@@ -299,6 +305,5 @@ forgot_password_button = Button(menu_window,
                                 pady = 5,
                                 command = lambda: forgot_password_username() ) #No command yet
 forgot_password_button.place(x=1500, y=950) #Places the button at the x and y coordinates
-
 
 menu_window.mainloop() #Runs the window infinitely until closed by user, listen for events.
