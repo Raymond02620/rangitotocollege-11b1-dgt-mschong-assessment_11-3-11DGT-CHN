@@ -121,7 +121,6 @@ def load_user_data():
             existing_data = json.load(f) #Loads the existing data from the json file
             user_data.update(existing_data) #Updates the dictionary with the existing data
             print("User data loaded!") #Prints to the console
-            print(user_data) #Prints the dictionary to the console
     except FileNotFoundError:
         print("No user data found!") #Prints to the console if no file is found
     #end of load_user_data function
@@ -242,6 +241,64 @@ guest_button = Button(menu_window,
                       command = guest_play, )#Calls the guest_play function when clicked
 guest_button.place(x=1500, y=450) #Places the button at the x and y coordinates
 
+# a function to verify the username when the submit button is clicked
+def forgot_verify(username_entry):
+    load_user_data() #Loads the user data from the json file
+    username = username_entry.get()
+    if username in user_data: #Checks if the username exists in the dictionary
+        print(f"Your password is: {user_data[username]}") #Prints the password to the console if the username exists
+
+    else:
+        print("Username not found!") #Prints to the console if the username does not exist
+    username_entry.delete(0, END) #Clears the username entry box
+    #end of forgot_verify function
+
+# a function that displays a input field for username when clicked
+def forgot_password_username():
+    global username_label, username_entry, submit_button
+     #creates a label and entry box for the username
+    username_label = Label(menu_window,
+                          text = "Enter your username:",
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#70B9E4",)
+    username_label.place(x=1500, y=800) #Places the label at the x and y coordinates
+    username_entry = Entry(menu_window,
+                          font = ('MS Serif', 14),
+                          fg="#000000",
+                          bg = "#FFFFFF",
+                          width = 30,)
+    username_entry.place(x=1500, y=830) #Places the entry box at the x and y coordinates
+    submit_button = Button(menu_window,
+                           text = "Submit",
+                           font = ('MS Serif', 14),
+                           fg = "#FFFFFF",
+                           bg = "#00AA00",
+                           relief = RAISED,
+                           bd = 5,
+                           activebackground= "#23FF34", #Changes color when clicked
+                           padx = 10,
+                           pady = 5,
+                           command = lambda: [forgot_verify(username_entry), terminate_username_entries()])
+    submit_button.place(x=1500, y=860) #Places the button at the x and y coordinates
+    #calls the retrieve_password function when the submit button is clicked
+def terminate_username_entries():
+        username_label.destroy() #Destroys the username label
+        username_entry.destroy() #Destroys the username entry box
+        submit_button.destroy() #Destroys the submit button
+#a button that says 'forgot password?'
+forgot_password_button = Button(menu_window,
+                                text = "Forgot Password?",
+                                font = ('MS Serif', 14),
+                                fg = "#FFFFFF",
+                                bg = "#FF0000",
+                                relief = RAISED,
+                                bd = 5,
+                                activebackground= "#FF6923", #Changes color when clicked
+                                padx = 10,
+                                pady = 5,
+                                command = lambda: forgot_password_username() ) #No command yet
+forgot_password_button.place(x=1500, y=950) #Places the button at the x and y coordinates
 
 
 menu_window.mainloop() #Runs the window infinitely until closed by user, listen for events.
