@@ -5,6 +5,7 @@ https://www.youtube.com/watch?v=lyoyTlltFVU&list=PLZPZq0r_RZOOeQBaP5SeMjl2nwDcJa
 
 from tkinter import * #Imports the tkinter library
 import json #Imports the json library
+import time #Imports the time library   
 import os
 
 menu_window = Tk() #Creates/instanstiates a window 
@@ -98,14 +99,16 @@ def sign_up():
 
     
 def submit(username_entry, password_entry):
-        username = username_entry.get()
+        username = (username_entry.get()).strip()
         username = str(username) #Converts the username to a string to prevent json data type errors
-        password = password_entry.get()
+        password = (password_entry.get()).strip()
         password = str(password) #Converts the password to a string to prevent json data type errors
         password = str(password) #Converts the password to a string to prevent json data type errors
         prevent_overwrite() #Calls the prevent_overwrite function to prevent previous data from being overwritten
         if username in user_data:
             print("Username already exists!") #Prints to the console if the username already exists
+        elif username == "" and password == "":
+            print("Please enter a username and password!") #Prints to the console if both entry boxes are empty
         else:
             user_data[username] = password #saves the username and password to the dictionary
             with open('user_data.json', 'w') as f:
@@ -120,7 +123,6 @@ def load_user_data():
         with open('user_data.json', 'r') as f:
             existing_data = json.load(f) #Loads the existing data from the json file
             user_data.update(existing_data) #Updates the dictionary with the existing data
-            print("User data loaded!") #Prints to the console
     except FileNotFoundError:
         print("No user data found!") #Prints to the console if no file is found
     #end of load_user_data function
@@ -210,6 +212,7 @@ def login():
                            padx = 10,
                            pady = 5,
                            command = lambda: [ load_user_data, verify(username_entry, password_entry),])
+    menu_window.bind("<Return>", lambda event: [load_user_data(), verify(username_entry, password_entry)])
     #check if the username and password match the data in the json file when the submit button is clicked
 
     #calls the verify function when the submit button is clicked
@@ -241,19 +244,37 @@ guest_button = Button(menu_window,
                       command = guest_play, )#Calls the guest_play function when clicked
 guest_button.place(x=1500, y=450) #Places the button at the x and y coordinates
 
+
+#creates a label that has the username's password when the username is entered
+password_label = Label(menu_window,
+                       text = "",
+                       font = ('MS Serif', 14),
+                       fg="#000000",
+                       bg = "#70B9E4",)
 # a function to verify the username when the submit button is clicked
 def forgot_verify(username_entry):
     load_user_data() #Loads the user data from the json file
-    username = username_entry.get()
+    username = (username_entry.get()).strip() #Gets the username from the entry box and removes any leading or trailing spaces
     try:
         if username in user_data: #Checks if the username exists in the dictionary
-            print(f"Your password is: {user_data[username]}") #Prints the password to the console if the username exists
-
+            #places the label in for 5 seconds
+            password_label.config(text=f"Your username's password is: {user_data[username]}") #Updates the label with the username's password
+            password_label.place(x=1500, y=920) #Places the label at the x and y coordinates
+            menu_window.update() #Updates the window to show the label
+            time.sleep(5) #Waits for 5 seconds
+            password_label.config(text="") #Clears the label text
         elif username == "":
-            print("Please enter a username!") #Prints to the console if the username entry box is empty
-
+            password_label.config(text="please enter a username!") #Updates the label with the username's password
+            password_label.place(x=1500, y=920) #Places the label at the x and y coordinates
+            menu_window.update() #Updates the window to show the label
+            time.sleep(3) #Waits for 5 seconds
+            password_label.config(text="") #Clears the label text
         else:
-            print("Username not found!") #Prints to the console if the username does not exist
+            password_label.config(text=f"Username not found!") #Updates the label with the username's password
+            password_label.place(x=1500, y=920) #Places the label at the x and y coordinates
+            menu_window.update() #Updates the window to show the label
+            time.sleep(3) #Waits for 5 seconds
+            password_label.config(text="") #Clears the label text
     except UnboundLocalError:
         print("No user data found!") #Prints to the console if no user data is found
     username_entry.delete(0, END) #Clears the username entry box
@@ -303,7 +324,7 @@ forgot_password_button = Button(menu_window,
                                 activebackground= "#FF6923", #Changes color when clicked
                                 padx = 10,
                                 pady = 5,
-                                command = lambda: forgot_password_username() ) #No command yet
+                                command = lambda: forgot_password_username() )
 forgot_password_button.place(x=1500, y=950) #Places the button at the x and y coordinates
 
 menu_window.mainloop() #Runs the window infinitely until closed by user, listen for events.
