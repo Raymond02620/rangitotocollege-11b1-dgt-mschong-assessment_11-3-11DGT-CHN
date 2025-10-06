@@ -150,6 +150,9 @@ def submit(username_entry, password_entry):
         signup_feedback_label.place(relx=relx(150), rely=rely(860))
         menu_window.update()
         signup_label_timer=menu_window.after(3000, lambda: signup_feedback_label.config(text="")) # Clear message after 3 seconds
+        time.sleep(3) # Pause for a moment to let user see the success message
+        subprocess.Popen(["python3", "Python/gameselection.py", username]) # Pass username as argument
+        menu_window.quit()
     username_entry.delete(0, END)
     password_entry.delete(0, END)
 
