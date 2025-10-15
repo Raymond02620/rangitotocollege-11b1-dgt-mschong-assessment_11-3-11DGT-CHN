@@ -3,6 +3,16 @@ import subprocess
 import json
 import time
 
+
+"""
+Works cited from: 
+
+
+https://www.youtube.com/watch?v=lyoyTlltFVU&list=PLZPZq0r_RZOOeQBaP5SeMjl2nwDcJaV0T - Channel: Bro Code - Tkinter tutourial playlist
+
+"""
+
+
 user_data = {}
 
 # Helper functions for dynamic placement
