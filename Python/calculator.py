@@ -70,8 +70,10 @@ def load_game():
 
 def reset_progress():
     global current_segment
-    current_segment = 0 # Reset the current segment to the beginning
-    save_game() # Save the reset progress
+    current_segment = 0
+    save_file = f"Python/saves/{username}_calculator_save.json"
+    if os.path.exists(save_file):
+        os.remove(save_file) # Delete the existing save file
 
 # --- Main Menu and Navigation Functions ---
 def exit_game():
