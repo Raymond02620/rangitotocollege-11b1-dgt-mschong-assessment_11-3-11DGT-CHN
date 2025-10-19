@@ -198,8 +198,11 @@ def stage_1():
     current_segment = 1
     stage_label = Label(game_frame, text="Stage 1: The Ancient Code", font=("MS Serif", 60), fg ="#000000", bg="#EBDB7F", padx=20, pady=20)
     stage_label.place(relx=0.5, rely=0.1, anchor=CENTER)
-    clue_label = Label(game_frame, text="Clue: " + stage_1_clue, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
-    clue_label.place(relx=relx(500), rely=rely(300))
+    clue_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", justify="center", bd=0, readonlybackground="#EBDB7F")
+    clue_entry.insert(0, "Clue: " + stage_1_clue)
+    clue_entry.config(state='readonly', width = len(clue_entry.get()) + 4)
+    clue_entry.place(relx=0.5, rely=rely(350), anchor="center")
+
     indicator_label = Label(game_frame, text="Enter the 4-digit code to proceed:", font=("MS Serif", 15), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     indicator_label.place(relx=relx(750), rely=rely(550))
     s1_code_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", bd=5, width=10)
@@ -213,7 +216,7 @@ def stage_1():
             s1_code_entry.config(state='disabled')
             s1_submit_button.config(state='disabled')
             s1_feedback_label.config(text="Correct! You've unlocked the next stage.") 
-            next_button_2 = Button(game_frame, text="Next Stage", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [s1_feedback_label.place_forget(), next_button_2.place_forget(), stage_label.place_forget(), s1_code_entry.place_forget(),clue_label.place_forget(), indicator_label.place_forget(),  s1_submit_button.place_forget(), stage_2_story()])
+            next_button_2 = Button(game_frame, text="Next Stage", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [s1_feedback_label.place_forget(), next_button_2.place_forget(), stage_label.place_forget(), s1_code_entry.place_forget(),clue_entry.place_forget(), indicator_label.place_forget(),  s1_submit_button.place_forget(), stage_2_story()])
             next_button_2.place(relx=relx(800), rely=rely(900))
         else:
             s1_feedback_label.config(text="Incorrect code. Try again.")
