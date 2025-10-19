@@ -42,19 +42,30 @@ game_frame = None  # Global variable to hold the game frame
 def save_game():
     if username != "Guest": # Only save if the user is not a guest
         save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
-        data = {"part": current_segment} # Data to be saved
+        data = {
+            "part": current_segment, # Save the current segment of the game
+            "stage_1_code": stage_1_code,
+            "stage_2_code": stage_2_code,
+            "stage_3_code": stage_3_code,
+        }
+        
         with open(save_file, 'w') as f:
-            json.dump(data, f) # Save the data to a JSON file
+            json.dump(data, f) # Write the data to the JSON file
+             
 
 def load_game():
+    global stage_1_code, stage_2_code, stage_3_code
     save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
     if username != "Guest" and os.path.exists(save_file):
         try:
             with open(save_file, 'r') as f:
                 data = json.load(f) # Load the data from the JSON file
-                return data.get("part", 0) # Return the saved part or 0 if not found
-        except (json.JSONDecodeError, IOError): # JSON decode error is caught if the file is corrupted, IO error is caught if there's an issue reading the file
-            return 0 # Return 0 if there's an error loading the file
+                stage_1_code = data.get("stage_1_code", 0)
+                stage_2_code = data.get("stage_2_code", 0)
+                stage_3_code = data.get("stage_3_code", 0)
+                return data.get("part", 0) # Return the saved part of the game
+        except (json.JSONDecodeError, IOError):
+            return 0 # Return 0 if there's an error loading the save file
     return 0 # Return 0 if no save file exists or user is Guest
 
 def reset_progress():
@@ -84,21 +95,25 @@ def change_exit_button_command(new_command): # Change the command of the exit bu
     exit_button.config(command=new_command)
 
 def randomise_code(): # Randomise the stage codes upon each new game
-    global stage_1_code, stage_2_code, stage_3_code, stage_1_clue, stage_2_clue, stage_3_clue
-    stage_1_code = random.randint(1000, 9999)
+    global stage_1_code, stage_2_code, stage_3_code
+    stage_1_code = random.randint(1000, 9999) # 4-digit code
+    stage_2_code = random.randint(10000, 99999) # 5-digit code
+    stage_3_code = random.randint(100000, 999999) # 6-digit code
+    generate_clue() # Generate clues based on the new codes
+
+def generate_clue(): # Randomise the stage codes upon each new game
+    global  stage_1_clue, stage_2_clue, stage_3_clue
     s1_digits = [int(d) for d in str(stage_1_code)] # Extract digits
     sum_digits = sum(s1_digits)
     prod_digits = s1_digits[0] * s1_digits[-1] # Product of first and last digit
     stage_1_clue = f"My four digits sum to {sum_digits}. The product of my first and last digit is {prod_digits}. My third digit is {s1_digits[2]}."
 
-    stage_2_code = random.randint(10000, 99999)
     s2_str = str(stage_2_code)
     first_two = int(s2_str[0:2]) # First two digits
     last_two = int(s2_str[3:5]) # Last two digits
     middle_digit_type = "even" if int(s2_str[2]) % 2 == 0 else "odd" # Determine if the middle digit is even or odd
     stage_2_clue = stage_2_clue = f"I am a 5-digit number. My middle digit is {middle_digit_type}. My first two digits and last two digits (as numbers) sum to {first_two + last_two}. My fourth digit is {s2_str[3]}."
 
-    stage_3_code = random.randint(100000, 999999)
     s3_str = str(stage_3_code)
     part_a = int(s3_str[0:2]) # First two digits
     part_b = int(s3_str[2:4]) # Middle two digits
