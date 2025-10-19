@@ -202,7 +202,6 @@ def stage_1():
     clue_entry.insert(0, "Clue: " + stage_1_clue)
     clue_entry.config(state='readonly', width = len(clue_entry.get()) + 4)
     clue_entry.place(relx=0.5, rely=rely(350), anchor="center")
-
     indicator_label = Label(game_frame, text="Enter the 4-digit code to proceed:", font=("MS Serif", 15), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     indicator_label.place(relx=relx(750), rely=rely(550))
     s1_code_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", bd=5, width=10)
@@ -233,8 +232,10 @@ def stage_2_story():
 
 def stage_2():
     global s2_code_entry, s2_submit_button
-    clue_label = Label(game_frame, text="Clue: " + stage_2_clue, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
-    clue_label.place(relx=relx(500), rely=rely(300))
+    clue2_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", justify="center", bd=0, readonlybackground="#EBDB7F")
+    clue2_entry.insert(0, "Clue: " + stage_2_clue)
+    clue2_entry.config(state='readonly', width = len(clue2_entry.get()) + 4)
+    clue2_entry.place(relx=0.5, rely=rely(350), anchor="center")
     indicator_label = Label(game_frame, text="Enter the 5-digit code to proceed:", font=("MS Serif", 15), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     indicator_label.place(relx=relx(750), rely=rely(550))
     s2_code_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", bd=5, width=10)
@@ -248,7 +249,7 @@ def stage_2():
             s2_code_entry.config(state='disabled')
             s2_submit_button.config(state='disabled')
             s2_feedback_label.config(text="Correct! You've unlocked the next stage.") 
-            next_button_3 = Button(game_frame, text="Next Stage", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [s2_feedback_label.place_forget(), next_button_3.place_forget(), stage_two_label.place_forget(), s2_code_entry.place_forget(),clue_label.place_forget(), indicator_label.place_forget(),  s2_submit_button.place_forget(), next_button_3.place_forget(), show_part_3()])
+            next_button_3 = Button(game_frame, text="Next Stage", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [s2_feedback_label.place_forget(), next_button_3.place_forget(), stage_two_label.place_forget(), s2_code_entry.place_forget(), clue2_entry.place_forget(), indicator_label.place_forget(),  s2_submit_button.place_forget(), next_button_3.place_forget(), show_part_3()])
             next_button_3.place(relx=relx(800), rely=rely(900))
         else:
             s2_feedback_label.config(text="Incorrect code. Try again.")
@@ -265,8 +266,10 @@ def show_part_3():
 
 def stage_3():
     global s3_code_entry, s3_submit_button
-    clue_label = Label(game_frame, text="Clue: " + stage_3_clue, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
-    clue_label.place(relx=relx(500), rely=rely(300))
+    clue3_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", justify="center", bd=0, readonlybackground="#EBDB7F")
+    clue3_entry.insert(0, "Clue: " + stage_3_clue)
+    clue3_entry.config(state='readonly', width = len(clue3_entry.get()) + 4)
+    clue3_entry.place(relx=0.5, rely=rely(350), anchor="center")
     indicator_label = Label(game_frame, text="Enter the 6-digit code to proceed:", font=("MS Serif", 15), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     indicator_label.place(relx=relx(750), rely=rely(550))
     s3_code_entry = Entry(game_frame, font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", bd=5, width=10)
@@ -282,7 +285,7 @@ def stage_3():
             s3_submit_button.place_forget()
             s3_code_entry.place_forget()
             indicator_label.place_forget()
-            clue_label.place_forget()
+            clue3_entry.place_forget()
             stage_three_label.place_forget()
             final_story = (username.title() + " solves the final riddle, and as he does, the ancient calculator glows with a mystical light. The scholar appears beside him, nodding in approval. 'You have proven yourself worthy,' he says. 'This calculator is not just a tool; it's a symbol of human ingenuity and the power of knowledge. Use it wisely.' With that, the scholar vanishes, leaving " + username + " alone with the ancient calculator, ready to unlock its secrets and shape the future.")
             s3_feedback_label.config(text="Congratulations! You've completed the quest and unlocked the ancient calculator!") 
