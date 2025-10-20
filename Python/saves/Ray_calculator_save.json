@@ -1,1 +1,6 @@
-{"part": 0, "stage_1_code": 3790, "stage_2_code": 17125, "stage_3_code": 206562}
+{
+    "level": 2,
+    "slips_per_click": 2,
+    "slip_amount": 0,
+    "slips_for_level_up": 1600
+}

@@ -113,7 +113,7 @@ def load_data():
 
                 #update labels to get values right
                 detention_label.config(text=f"Detention Slips: {num_ds}")
-                target_label.config(text=f"{slips_for_level_up} detention slips needed to level up, level {minimum_level} / {maximum_level}")
+                target_label.config(text=f"{slips_for_level_up} detention slips needed to level up, level {minimum_level} / {maximum_level}, current slip gain per click: {slips_per_click}")
             except (json.JSONDecodeError, KeyError, IOError,) as e:
                 return 0
 
@@ -140,7 +140,7 @@ def change_exit_button_text(new_text): # Change the text of the exit button
 def change_exit_function(new_function):
     exit_button.config(command=new_function)
  
-play_button = Button(game_window, text="Play", font=("MS Serif", 30), height = 2,width = 15, activebackground= "#EA544C", activeforeground="#7582E8", padx=10, pady=10, command = lambda: [enter_game_page(), change_exit_button_text("Return to Menu"), load_data(), change_exit_function(lambda:[return_to_menu()])])
+play_button = Button(game_window, text="Play", font=("MS Serif", 30), height = 2,width = 15, activebackground= "#EA544C", activeforeground="#7582E8", padx=10, pady=10, command = lambda: [enter_game_page(), change_exit_button_text("Return to Menu"), change_exit_function(lambda:[return_to_menu()])])
 play_button.place(relx = 0.5, rely = 0.7, anchor = CENTER)
 
 num_ds = 0
@@ -226,5 +226,5 @@ def return_to_menu():
     play_button.place(relx = 0.5, rely = 0.7, anchor = CENTER)
                      
                      
-
+load_data()
 game_window.mainloop()
