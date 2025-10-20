@@ -193,7 +193,7 @@ def show_part_one():
     part_one_label = Label(game_frame, text=part_1_story, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     part_one_label.place(relx=relx(120), rely=rely(400))
     next_button = Button(game_frame, text="Begin Your Quest", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [part_one_label.place_forget(), next_button.place_forget(), stage_1()])
-    next_button.place(relx=relx(800), rely=rely(700))
+    next_button.place(relx=0.5, rely=rely(700))
 
 def stage_1():
     global s1_code_entry, s1_submit_button, current_segment
@@ -228,7 +228,7 @@ def stage_2_story():
     stage_two_label = Label(game_frame, text="Stage 2: The Scholar's Challenge", font=("MS Serif", 60), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
     stage_two_label.place(relx=0.5, rely=0.1, anchor=CENTER)
     story_label = Label(game_frame, text=stage_2_story_text, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
-    story_label.place(relx=relx(120), rely=rely(400))
+    story_label.place(relx=0.5, rely=rely(400))
     next_button = Button(game_frame, text="Begin Stage 2", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [story_label.place_forget(), next_button.place_forget(), stage_2()])
     next_button.place(relx=relx(800), rely=rely(700))
 
@@ -262,7 +262,7 @@ def show_part_3():
     stage_three_label = Label(game_frame, text="Stage 3: The Final Riddle", font=("MS Serif", 60), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200)
     stage_three_label.place(relx=0.5, rely=0.1, anchor=CENTER)
     story_label = Label(game_frame, text=stage_3_story_text, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200, justify="center")
-    story_label.place(relx=relx(120), rely=rely(400))
+    story_label.place(relx=0.5, rely=rely(400))
     next_button_4 = Button(game_frame, text="Begin Stage 3", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [story_label.place_forget(), next_button_4.place_forget(), stage_3()])
     next_button_4.place(relx=relx(800), rely=rely(700))
 
