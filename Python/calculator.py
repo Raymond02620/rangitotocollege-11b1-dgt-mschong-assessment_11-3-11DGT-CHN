@@ -8,8 +8,8 @@ import os
 
 
 "work cited: https://www.youtube.com/watch?v=nKkBDtDjic4 - tutourial to learn more advanced json and intro to os"
-if not os.path.exists('Python/saves'): # Create saves directory if it doesn't exist
-    os.makedirs('Python/saves') # Create the directory
+if not os.path.exists('Python/calc'): # Create saves directory if it doesn't exist
+    os.makedirs('Python/calc') # Create the directory
 
 # Helper functions for dynamic placement
 def relx(x): return x / 1920 # Assuming a base width of 1920 pixels
@@ -41,7 +41,7 @@ game_frame = None  # Global variable to hold the game frame
 # --- Save/Load Functions ---
 def save_game():
     if username != "Guest": # Only save if the user is not a guest
-        save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
+        save_file = f"Python/calc/{username}_calculator_save.json" # Define the save file path
         data = {
             "part": current_segment, # Save the current segment of the game
             "stage_1_code": stage_1_code,
@@ -55,7 +55,7 @@ def save_game():
 
 def load_game():
     global stage_1_code, stage_2_code, stage_3_code
-    save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
+    save_file = f"Python/calc/{username}_calculator_save.json" # Define the save file path
     if username != "Guest" and os.path.exists(save_file):
         try:
             with open(save_file, 'r') as f:
@@ -71,7 +71,7 @@ def load_game():
 def reset_progress():
     global current_segment
     current_segment = 0
-    save_file = f"Python/saves/{username}_calculator_save.json"
+    save_file = f"Python/calc/{username}_calculator_save.json"
     if os.path.exists(save_file):
         os.remove(save_file) # Delete the existing save file
 
@@ -133,7 +133,7 @@ def restore_menu(): # Restore the main menu elements
 
 def start_fresh_game():
     randomise_code() # Randomise the codes for a new game
-    save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
+    save_file = f"Python/calc/{username}_calculator_save.json" # Define the save file path
     if os.path.exists(save_file):
         os.remove(save_file) # Delete the existing save file
     
@@ -157,11 +157,20 @@ def return_to_menu():
     change_exit_button_text("Exit")
     change_exit_button_command(exit_game)
 
+def finish_and_reset():
+    global game_frame
+    reset_progress()
+    if game_frame:
+        game_frame.destroy()
+        game_frame = None
+    restore_menu()
+    change_exit_button_text("Exit")
+    change_exit_button_command(exit_game)
 # --- New Game / Continue Game Logic Functions ---
 
 
 def show_main_menu_buttons(): # Shows the main menu buttons
-    save_file = f"Python/saves/{username}_calculator_save.json" # Define the save file path
+    save_file = f"Python/calc/{username}_calculator_save.json" # Define the save file path
     save_exist = username != "Guest" and os.path.exists(save_file) # Check if the save file exists and user is not Guest
 
     if save_exist:
@@ -295,7 +304,7 @@ def stage_3():
             congrats_label.place(relx=0.5, rely=0.1, anchor=CENTER)
             final_label = Label(game_frame, text=final_story, font=("MS Serif", 20), fg ="#000000", bg="#EBDB7F", padx=20, pady=20, wraplength=1200)
             final_label.place(relx=relx(130), rely=rely(400))
-            next_button_5 = Button(game_frame, text="Finish", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=lambda: [reset_progress(), game_frame.destroy(), restore_menu()])
+            next_button_5 = Button(game_frame, text="Finish", font=("MS Serif", 20), fg="#000000", bg="#FFFFFF", relief=RAISED, bd=5, padx=10, pady=5, activebackground="#3B10D4", activeforeground="#ED0F0F", command=finish_and_reset)
             next_button_5.place(relx=relx(900), rely=rely(900))
         else:
             s3_feedback_label.config(text="Incorrect code. Try again.")

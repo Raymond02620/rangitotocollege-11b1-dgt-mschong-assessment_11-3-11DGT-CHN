@@ -21,6 +21,7 @@ detention_slip_image = detention_slip_image.subsample(2,2)
 Chong_phrases = [
     "The grey hair has multiplied.",
     "Get on with your work.",
+    "I'm retiring today",
     "BREAK",
     "ONE PERSON",
     "Heeennnryyyy",
@@ -58,8 +59,8 @@ Chong_phrases = [
     "I want to retire early",
 ]
 
-if not os.path.exists('Python/saves'): # Create saves directory if it doesn't exist
-    os.makedirs('Python/saves') # Create the directory
+if not os.path.exists('Python/click'): # Create saves directory if it doesn't exist
+    os.makedirs('Python/click') # Create the directory
 
 if len(sys.argv) > 1:
     username = sys.argv[1]
@@ -92,7 +93,7 @@ def save_data():
     global minimum_level, slips_per_click, num_ds, slips_for_level_up
     if username != "Guest":
         data = { "level" : minimum_level, "slips_per_click" : slips_per_click, "slip_amount" : num_ds, "slips_for_level_up" : slips_for_level_up }
-        filepath = f"Python/saves/{username}_calculator_save.json"
+        filepath = f"Python/click/{username}_calculator_save.json"
         with open(filepath, 'w') as f:
             json.dump(data, f, indent=4)
 
@@ -100,7 +101,7 @@ def load_data():
     global minimum_level, slips_per_click, num_ds, slips_for_level_up
 
     if username != "Guest":
-        filepath = f"Python/saves/{username}_calculator_save.json"
+        filepath = f"Python/click/{username}_calculator_save.json"
         if os.path.exists(filepath):
             try:
                 with open(filepath, 'r') as f:
