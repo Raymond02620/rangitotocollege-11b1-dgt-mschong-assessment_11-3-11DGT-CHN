@@ -57,6 +57,7 @@ Chong_phrases = [
     "AHAhahHAhAHAHahAHAH",
     "EhehEhEHeHE",
     "I want to retire early",
+    
 ]
 
 if not os.path.exists('Python/click'): # Create saves directory if it doesn't exist
