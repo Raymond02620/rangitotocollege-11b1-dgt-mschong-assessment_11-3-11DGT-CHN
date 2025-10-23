@@ -1,24 +1,16 @@
 from tkinter import *
 import tkinter as tk
-import random
-import json
 import sys
 import subprocess
-import os
 
-"""Tkinter tutourial used / cited: Brocode - canvas tutourial https://www.youtube.com/watch?v=171uIsavFf8 """
-
-if not os.path.exists('Python/rps'): # Create saves directory if it doesn't exist
-    os.makedirs('Python/rps') # Create the directory
-
-game_window = tk.Tk()
-screen_width = game_window.winfo_screenwidth()
-screen_height = game_window.winfo_screenheight()
-game_window.geometry(f"{screen_width}x{screen_height}")
-game_window.title("The Chong Games Compedium - Anarchy Rock, Paper Scissors")
+rule_window = tk.Tk()
+screen_width = rule_window.winfo_screenwidth()
+screen_height = rule_window.winfo_screenheight()
+rule_window.geometry(f"{screen_width}x{screen_height}")
+rule_window.title("Anarchy Rock, Paper Scissors - Rules")
 gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif')
 gm_icon = gm_icon.subsample(2,2)
-game_window.iconphoto(True, gm_icon)
+rule_window.iconphoto(True, gm_icon)
 
 def relx(x): return x / 1920
 def rely(y): return y / 1080
@@ -28,8 +20,7 @@ if len(sys.argv) > 1:  # Check if a username argument is provided
 else:
     username = "Guest" # Default to "Guest" if no username is provided
 
-
-canvas_setup = Canvas(game_window, bg="white", highlightthickness=0)
+canvas_setup = Canvas(rule_window, bg="white", highlightthickness=0)
 
 resizable_canvas_items = []
 
@@ -60,16 +51,15 @@ def create_responsive_rectangle(design_x0, design_y0, design_x1, design_y1, **kw
     resizable_canvas_items.append((item_id, 'rectangle', design_coords)) #the list must know what I want, the type I want and the placement of my item.
     return item_id
 
-def create_responsive_oval(design_x0, design_y0, design_x1, design_y1, **kwargs): #Ill leave it here since thats the only 3 shapes I need.
+def create_responsive_oval(design_x0, design_y0, design_x1, design_y1, **kwargs): 
     item_id = canvas_setup.create_oval(0, 0, 0, 0, **kwargs)
     design_coords = (design_x0, design_y0, design_x1, design_y1)
     resizable_canvas_items.append((item_id, 'oval', design_coords))
     return item_id
 
-#and now I bind the whole dynamic sizing function to launch it.
+
 canvas_setup.bind("<Configure>", resize_canvas_elements)
 
-#Now I start drawing my screen
 create_responsive_line(0, 0, 0, 1080, fill="black", width=50)
 create_responsive_line(0,0,1920,0, fill = "black", width = 50)
 create_responsive_line(0,1080,1920,1080, fill = "black", width = 50)
@@ -77,25 +67,20 @@ create_responsive_line(1920,0,1920,1080, fill = "black", width = 50)
 create_responsive_rectangle(30,0,1889,200, fill = "#E42E2E", outline = "black")
 create_responsive_rectangle(30,200,1889,850, fill = "#38B342", outline = "black")
 create_responsive_rectangle(30,850,1889,1080, fill ="#E42E2E", outline = "black")
-create_responsive_line(30,540,1889,540, fill = "white", width = 10)
-create_responsive_oval(910, 490, 1010, 590, fill = "white", outline="black", width=5)
+
 canvas_setup.pack(fill="both", expand=True) 
-#end of page setup
 
-#start of game initialisation of widgets"
-big_label = Label(game_window, text = "Anarchy Rock, Paper, Scissors", font = ("MS Serif", 50), padx = 20, pady = 20, relief = RAISED, bd = 10, fg = "#141FEC", bg = "#B63D57")
+big_label = Label(rule_window, text = "THE SUFFERING, THE ANARCHY, THE RULES", font = ("MS Serif", 50), padx = 20, pady = 20, relief = RAISED, bd = 10, fg = "#141FEC", bg = "#B63D57")
 big_label.place(relx = 0.5, rely = 0.1, anchor = CENTER)
-small_label = Label(game_window, text = "A game where hopes, peace and friendship disintergrates", font = ("MS Serif", 20), padx = 20, pady = 20, relief = RAISED, bd = 10, fg = "#141FEC", bg = "#B63D57")
-small_label.place(relx = 0.5, rely = 0.25, anchor = CENTER)
-exit_button = Button(game_window, text = "Exit", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: ( game_window.destroy(), subprocess.Popen(["python3", "Python/gameselection.py", username ])))
-exit_button.place(relx = 0.2, rely = 0.9, anchor = CENTER)
-play_button = Button(game_window, text = "Play", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: print('play game'))
-play_button.place(relx = 0.4, rely = 0.9, anchor = CENTER)
-rules_button = Button(game_window, text = "How to play", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: (game_window.destroy(), subprocess.Popen(["python3", "rps_rules.py", username])))
-rules_button.place(relx = 0.6, rely = 0.9, anchor = CENTER)
-galore_button = Button(game_window, text = "Card Galore", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: (game_window.destroy(), subprocess.Popen(["python3", "rps_galore.py", username])))
-galore_button.place(relx = 0.8, rely = 0.9, anchor = CENTER)
 
-
-
-game_window.mainloop()
+text1_label = Label(rule_window, text = "Welcome, to Anarchy Rock, Paper Scissors!. The main objective in this game is simple: Ensure that you absolutely OBLIBERATE your opponent's sanity or get your sanity set to [NULL].", fg = "#000000", bg = "#38B342", font = ("MS Serif", 20), wraplength = 1200)
+text1_label.place(relx = 0.5, rely = 0.2, anchor = CENTER)
+text2_label = Label(rule_window, text = "The rules are simple: At the start of each round, you will be assigned 3 of my beautiful, handcrafted anarchy cards. You will not know what your opponent has (duh.) All you have to do, is to use logic, and (maybe) a bit of your common sense to predict your best chances of winning, then select a card - and pray that you win. (Yes. PRAY.)", fg = "#000000", bg = "#38B342", font = ("MS Serif", 20), wraplength = 1200)
+text2_label.place(relx = 0.5, rely = 0.3, anchor = CENTER)
+text3_label = Label(rule_window, text = "If you win, you will recieve a point (yippee!), but, if you don't, TOO BAD. Plus you get one additional roast from the creator (me). The first to three points, will win! As a reward, your sworn enemy will recieve: a). A moment of glory, b). the sheer joy of looking at you being roasted (yes, AGAIN.).", fg = "#000000", bg = "#38B342", font = ("MS Serif", 20), wraplength = 1200)
+text3_label.place(relx = 0.5, rely = 0.45, anchor = CENTER)
+text4_label = Label(rule_window, text = "There is currently 10 cards of anarchy in this game. So before you even decide to play and expect to obliberate a soul, I'd suggest you to go to the cards galore, and check out what cards we have on stock, and use what you'd define as 'common sense' to make out a sense of what beats what. Welp, thats it from me, and happy-enjoying-anarchy-sadism!", fg = "#000000", bg = "#38B342", font = ("MS Serif", 20), wraplength = 1200)
+text4_label.place(relx = 0.5, rely = 0.65, anchor = CENTER)
+exit_button = Button(rule_window, text = "Back to main menu", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: ( rule_window.destroy(), subprocess.Popen(["python3", "Python/rps.py", username ])))
+exit_button.place(relx = 0.5, rely = 0.9, anchor = CENTER)
+rule_window.mainloop()
