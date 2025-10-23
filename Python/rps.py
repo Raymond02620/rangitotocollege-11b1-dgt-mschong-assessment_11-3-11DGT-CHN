@@ -275,12 +275,15 @@ play_button = Button(game_window, text = "Play", font = ("MS Serif", 20), padx =
 play_button.place(relx = 0.4, rely = 0.9, anchor = CENTER)
 rules_button = Button(game_window, text = "How to play", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE",activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: (game_window.destroy(), subprocess.Popen(["python3", "rps_rules.py", username])))
 rules_button.place(relx = 0.6, rely = 0.9, anchor = CENTER)
-galore_button = Button(game_window, text = "Card Galore", font = ("MS Serif", 30), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: (game_window.destroy(), subprocess.Popen(["python3", "rps_galore.py", username])))
+galore_button = Button(game_window, text = "Card Galore", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: (game_window.destroy(), subprocess.Popen(["python3", "rps_galore.py", username])))
 galore_button.place(relx = 0.8, rely = 0.9, anchor = CENTER)
-account_label = Label(game_window, text = f"Current account: {username}", font = ("MS Serif", 30),padx = 10, pady = 10, bd = 5, )
+account_label = Label(game_window, text = f"Current account: {username}, wins: {player_total_wins}, loses: {player_total_losses}", font = ("MS Serif", 30),padx = 10, pady = 10, bd = 5, )
 account_label.place(relx = 0.5, rely =0.35, anchor = CENTER)
 
-player_score_label = Label(game_window, text="Player: 0", font=("MS Serif", 20), bg="#E42E2E", fg="white")
+if username != "Guest":
+    player_score_label = Label(game_window, text=f"{username}: 0", font=("MS Serif", 20), bg="#E42E2E", fg="white")
+else:
+    player_score_label = Label(game_window, text="Guest: 0", font=("MS Serif", 20), bg="#E42E2E", fg="white")
 computer_score_label = Label(game_window, text="Computer: 0", font=("MS Serif", 20), bg="#E42E2E", fg="white")
 result_label = Label(game_window, text="", font=("MS Serif", 30), bg="#38B342", fg="white")
 enemy_card_label = Label(game_window, text="???", font=("MS Serif", 30), height=2, width=15, relief=RAISED, bd=5, fg = "black", bg = "#53C8DF")
@@ -412,6 +415,10 @@ def show_main_menu():
     player_score_label.place_forget(); computer_score_label.place_forget(); enemy_card_label.place_forget()
     for button in player_hand:
         button.place_forget()
+    if username == "Guest":
+        account_label.config(text=f"Current account: {username}")
+    else:
+        account_label.config(text=f"Current account: {username}, wins: {player_total_wins}, loses: {player_total_losses}")
     big_label.place(relx=0.5, rely=0.1, anchor=CENTER)
     small_label.place(relx=0.5, rely=0.25, anchor=CENTER)
     account_label.place(relx=0.5, rely=0.35, anchor=CENTER)
