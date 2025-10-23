@@ -91,7 +91,7 @@ label9  = Label(galore_window, text = "The Darkness 🔮 - universe.exe corrupte
 label9.place(relx = 0.8, rely = 0.5, anchor = CENTER)
 label10 = Label(galore_window, text = "The Lightning ⚡ - wifi but fatal", font = ("MS Serif", 20), padx = 20, pady = 20,  bd = 10, fg = "#000000", bg = "#38B342")
 label10.place(relx = 0.8, rely = 0.7, anchor = CENTER)
-exit_button = Button(galore_window, text = "Back to main menu", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: ( galore_window.destroy(), subprocess.Popen(["python3", "Python/rps.py", username ])))
+exit_button = Button(galore_window, text = "Back to main menu", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 15, command = lambda: ( galore_window.destroy(), subprocess.Popen(["python3", "Python/rps.py", username ])))
 exit_button.place(relx = 0.5, rely = 0.9, anchor = CENTER)
 galore_window.mainloop()
 
