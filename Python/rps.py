@@ -199,10 +199,10 @@ roasts = [
     "All elements involved demand a refund.",
     "You've just broken the leaderboard… downwards.",
     "Your loss has caused a minor singularity.",
-    "Even the AI is crying silently in shame."
-    "EVEN MY DEAD GRANDMA WILL DO BETTER!"
-    "Your IQ: comic-sans"
-    "You just got CHONGd"
+    "Even the AI is crying silently in shame.",
+    "EVEN MY DEAD GRANDMA WILL DO BETTER!",
+    "Your IQ: comic-sans",
+    "You just got CHONGd",
 ]
 
 brutal_roasts = [
@@ -237,8 +237,8 @@ brutal_roasts = [
     "The fabric of reality just filed harassment charges.",
     "You are now a universal cautionary tale: 'How Not to Play'.",
     "All nearby NPCs are now traumatized beyond repair.",
-    "Your defeat will echo until the heat death of the universe."
-    "YOUR SKILL IS BANNED IN 12 PARALLEL UNIVERSES, ONE OF THEM IS THE 'Chongverse'"
+    "Your defeat will echo until the heat death of the universe.",
+    "YOUR SKILL IS BANNED IN 12 PARALLEL UNIVERSES, ONE OF THEM IS THE 'Chongverse'",
 ]
 
 def save_data():
