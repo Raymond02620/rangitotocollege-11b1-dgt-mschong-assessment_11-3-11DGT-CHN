@@ -69,7 +69,7 @@ create_responsive_rectangle(30,200,1889,850, fill = "#38B342", outline = "black"
 create_responsive_rectangle(30,850,1889,1080, fill ="#E42E2E", outline = "black")
 canvas_setup.pack(fill="both", expand=True) 
 
-big_label = Label(galore_window, text = "THE CHAOS, THE PAIN, THE 15 CARDS OF ETERNAL DOOM", font = ("MS Serif", 50), relief = RAISED, padx = 20, pady = 20, bd = 10, fg = "#141FEC", bg = "#B63D57")
+big_label = Label(galore_window, text = "THE CHAOS, THE PAIN, THE 10 CARDS OF ETERNAL DOOM", font = ("MS Serif", 50), relief = RAISED, padx = 20, pady = 20, bd = 10, fg = "#141FEC", bg = "#B63D57")
 big_label.place(relx = 0.5, rely = 0.1, anchor = CENTER)
 label1  = Label(galore_window, text = "The Rock 🪨 - geological violence simulator", font = ("MS Serif", 20), padx = 20, pady = 20,  bd = 10, fg = "#000000", bg = "#38B342")
 label1.place(relx = 0.5, rely = 0.2, anchor = CENTER)
@@ -91,7 +91,7 @@ label9  = Label(galore_window, text = "The Darkness 🔮 - universe.exe corrupte
 label9.place(relx = 0.8, rely = 0.5, anchor = CENTER)
 label10 = Label(galore_window, text = "The Lightning ⚡ - wifi but fatal", font = ("MS Serif", 20), padx = 20, pady = 20,  bd = 10, fg = "#000000", bg = "#38B342")
 label10.place(relx = 0.8, rely = 0.7, anchor = CENTER)
-exit_button = Button(galore_window, text = "Back to main menu", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#2B3DE3", bg = "#EE2849", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: ( galore_window.destroy(), subprocess.Popen(["python3", "Python/rps.py", username ])))
+exit_button = Button(galore_window, text = "Back to main menu", font = ("MS Serif", 20), padx = 10, pady = 10, bd = 5, fg = "#E33D2B", bg = "#3F28EE", activebackground="#334EC4", activeforeground="#D71F47", relief = RAISED, height = 2, width = 10, command = lambda: ( galore_window.destroy(), subprocess.Popen(["python3", "Python/rps.py", username ])))
 exit_button.place(relx = 0.5, rely = 0.9, anchor = CENTER)
 galore_window.mainloop()
 
