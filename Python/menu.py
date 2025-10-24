@@ -26,9 +26,7 @@ screen_width = menu_window.winfo_screenwidth()
 screen_height = menu_window.winfo_screenheight()
 menu_window.geometry(f"{screen_width}x{screen_height}")
 menu_window.title("The Chong Games Compedium - Main Menu") #Sets the title of the window
-mm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif') #Imports an image to use as the icon of the window
-mm_icon = mm_icon.subsample(2,2) #Resizes the image to be smaller by that factor
-menu_window.iconphoto(True, mm_icon) #Sets the icon of the window
+
 menu_window.config(background="#70B9E4") #Sets the background color of the window
 
 
@@ -41,7 +39,7 @@ label = Label(menu_window,
             bd = 10,
             padx = 10,
             pady = 20,
-            image = mm_icon,
+            
             compound = 'bottom',)
 label.pack()
 exit_button = Button(menu_window,

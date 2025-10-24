@@ -13,9 +13,7 @@ screen_width = game_window.winfo_screenwidth()
 screen_height = game_window.winfo_screenheight()
 game_window.geometry(f"{screen_width}x{screen_height}")
 game_window.title("The Chong Games Compedium - Game Selection") #Sets the title of the window
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif') #Imports an image to use as the icon of the window
-gm_icon = gm_icon.subsample(2,2) #Resizes the image to be smaller by that factor
-game_window.iconphoto(True, gm_icon) #Sets the icon of the window
+
 game_window.config(background="#70B9E4") #Sets the background color of the window
 
 if len(sys.argv) > 1:

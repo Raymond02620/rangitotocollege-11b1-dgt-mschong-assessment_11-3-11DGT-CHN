@@ -16,9 +16,7 @@ screen_width = game_window.winfo_screenwidth()
 screen_height = game_window.winfo_screenheight()
 game_window.geometry(f"{screen_width}x{screen_height}")
 game_window.title("The Chong Games Compedium - Anarchy Rock, Paper Scissors")
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif')
-gm_icon = gm_icon.subsample(2,2)
-game_window.iconphoto(True, gm_icon)
+
 
 def relx(x): return x / 1920
 def rely(y): return y / 1080

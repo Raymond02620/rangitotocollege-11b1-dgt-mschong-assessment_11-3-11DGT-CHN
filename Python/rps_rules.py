@@ -8,9 +8,7 @@ screen_width = rule_window.winfo_screenwidth()
 screen_height = rule_window.winfo_screenheight()
 rule_window.geometry(f"{screen_width}x{screen_height}")
 rule_window.title("Anarchy Rock, Paper Scissors - Rules")
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif')
-gm_icon = gm_icon.subsample(2,2)
-rule_window.iconphoto(True, gm_icon)
+
 
 def relx(x): return x / 1920
 def rely(y): return y / 1080

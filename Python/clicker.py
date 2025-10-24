@@ -11,12 +11,8 @@ screen_width = game_window.winfo_screenwidth()
 screen_height = game_window.winfo_screenheight()
 game_window.geometry(f"{screen_width}x{screen_height}")
 game_window.title("The Chong Games Compedium - The Chong Clicker")
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif')
-gm_icon = gm_icon.subsample(2,2)
-game_window.iconphoto(True, gm_icon)
 game_window.config(background="#EB887F")
-detention_slip_image = PhotoImage(file='Python/CHONG/detention.gif')
-detention_slip_image = detention_slip_image.subsample(2,2)
+
 
 Chong_phrases = [
     "The grey hair has multiplied.",
@@ -79,7 +75,7 @@ title_label = Label(game_window,
                     padx=20,
                     pady=20,
                     relief="raised",
-                    image = detention_slip_image,
+                    
                     compound="bottom")
 title_label.place(relx = 0.5, rely = 0.1, anchor = CENTER)
 

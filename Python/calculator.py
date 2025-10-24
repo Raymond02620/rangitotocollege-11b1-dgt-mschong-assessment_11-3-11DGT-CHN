@@ -21,9 +21,7 @@ screen_width = game_window.winfo_screenwidth() # Get the screen width
 screen_height = game_window.winfo_screenheight() # Get the screen height
 game_window.geometry(f"{screen_width}x{screen_height}") # Set the window size to full screen
 game_window.title("The Chong Games Compedium - The Quest For The First Calculator") #Sets the title of the window
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif') #Imports an image to use as the icon of the window
-gm_icon = gm_icon.subsample(2,2) #Resizes the image to be smaller by that factor
-game_window.iconphoto(True, gm_icon) #Sets the icon of the window
+
 game_window.config(background="#EBDB7F") #Sets the background color of the window
 
 

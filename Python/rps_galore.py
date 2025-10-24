@@ -8,9 +8,7 @@ screen_width = galore_window.winfo_screenwidth()
 screen_height = galore_window.winfo_screenheight()
 galore_window.geometry(f"{screen_width}x{screen_height}")
 galore_window.title("Anarchy Rock, Paper Scissors - Card Galore")
-gm_icon = PhotoImage(file='Python/CHONG/Screenshot 2025-09-01 123022.gif')
-gm_icon = gm_icon.subsample(2,2)
-galore_window.iconphoto(True, gm_icon)
+
 
 def relx(x): return x / 1920
 def rely(y): return y / 1080
